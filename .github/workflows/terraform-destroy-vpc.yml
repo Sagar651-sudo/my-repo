@@ -1,15 +1,10 @@
-name: 'Terraform VPC Deployment'
+name: 'Terraform Destroy VPC'
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:   # Allows manual trigger from GitHub UI
 
 jobs:
-  terraform:
+  terraform-destroy:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,21 +19,12 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ap-south-1
+        aws-region: us-east-1
 
     - name: Terraform Init
       run: terraform init
       working-directory: terraform
 
-    - name: Terraform Validate
-      run: terraform validate
-      working-directory: terraform
-
-    - name: Terraform Plan
-      run: terraform plan -out=tfplan
-      working-directory: terraform
-
-    - name: Terraform Apply
-      if: github.ref == 'refs/heads/main'
-      run: terraform apply -auto-approve tfplan
+    - name: Terraform Destroy
+      run: terraform destroy -auto-approve
       working-directory: terraform
