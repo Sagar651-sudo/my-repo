@@ -1,4 +1,4 @@
-name: 'Terraform Destroy VPC'
+name: 'Terraform create ec2'
 
 on:
   workflow_dispatch:   # Allow manual trigger
