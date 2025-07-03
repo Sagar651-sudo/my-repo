@@ -23,8 +23,8 @@ jobs:
 
     - name: Terraform Init
       run: terraform init
-      working-directory: terraform
+      working-directory: ec2
 
-   # - name: Terraform plan
-      #run: terraform destroy -auto-approve
-    #  working-directory: terraform
+    - name: Terraform plan
+      run: terraform plan
+      working-directory: ec2
